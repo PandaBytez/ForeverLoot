@@ -1,0 +1,19 @@
+## Interface: 16001
+## Author: Lag
+## Version: 3.2.0-forever.1
+## Dependencies: ForeverLoot
+## LoadOnDemand: 1
+
+## Title: |cffffd100ForeverLoot|r |cFF0099FF[Crafting]|r
+## Notes: AtlasLoot loot tables of Crafting Items
+
+## X-Category: Map
+## X-License: GPL v2
+
+## X-ForeverLoot-LootModule: 1
+
+Locales\Locales.xml
+
+private.lua
+data.lua
+forever_data.lua

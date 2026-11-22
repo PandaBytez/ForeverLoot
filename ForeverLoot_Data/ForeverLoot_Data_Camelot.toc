@@ -1,0 +1,17 @@
+## Interface: 16001
+## Author: Lag
+## Version: 3.2.0-forever.1
+## Dependencies: ForeverLoot
+## LoadOnDemand: 1
+
+## Title: |cffffd100ForeverLoot|r |cFFFF0000[Data]|r
+## Notes: AtlasLoot data module
+
+## X-Category: Map
+## X-License: GPL v2
+
+core.lua
+
+locales.lua
+items.lua
+source.lua

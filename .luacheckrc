@@ -10,10 +10,10 @@ exclude_files = {
 	"DungeonsAndRaids.lua",
 	"PvP.lua",
 	"Options.lua",
-	"AtlasLootClassic/Libs/",
-	"AtlasLootClassic_Options/Libs/",
+	"ForeverLoot/Libs/",
+	"ForeverLoot_Options/Libs/",
 	"babelfish.lua",
-	"AtlasLootClassic_DungeonsAndRaids/droprate_override.lua",
+	"ForeverLoot_DungeonsAndRaids/droprate_override.lua",
 }
 ignore = {
 	"11./SLASH_.*", -- Setting an undefined (Slash handler) global variable
@@ -38,9 +38,9 @@ globals = {
 
 	-- AtlasLoot
 	"AtlasLoot",
-	"AtlasLootClassicCharDB",
-	"AtlasLootClassicDB",
-	"AtlasLootClassicRawDB",
+	"ForeverLootCharDB",
+	"ForeverLootDB",
+	"ForeverLootRawDB",
 	"ATLASLOOT_UNKNOWN_COLOR",
 	"ATLASLOOT_COLLECTION_COLOR",
 	"ATLASLOOT_DUNGEON_COLOR",

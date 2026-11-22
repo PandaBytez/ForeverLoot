@@ -1,8 +1,6 @@
-# AtlasLootClassic
+# ForeverLoot
 
-[![Build Status](https://github.com/Hoizame/AtlasLootClassic/workflows/CI/badge.svg)](https://github.com/Hoizame/AtlasLootClassic/actions?workflow=CI)[![AtlasLootClassic Discord](https://img.shields.io/badge/discord-atlaslootclassic-7289DA)](https://discord.gg/vMUwzPc)
-
-AtlasLootClassic is an UI mod allowing for loot tables of bosses to be browsed whenever needed within the game.
+ForeverLoot is a UI mod allowing for loot tables of bosses to be browsed whenever needed within the game.
 
 ## Download
 

@@ -1,0 +1,18 @@
+## Interface: 16001
+## Author: Lag
+## Version: 3.2.0-forever.1
+## Dependencies: ForeverLoot
+## LoadOnDemand: 1
+
+## Title: |cffffd100ForeverLoot|r |cFF0099FF[Collections]|r
+## Notes: AtlasLoot loot tables from Collections
+
+## X-Category: Map
+## X-License: GPL v2
+
+## X-ForeverLoot-LootModule: 1
+
+Locales\Locales.xml
+
+private.lua
+data.lua

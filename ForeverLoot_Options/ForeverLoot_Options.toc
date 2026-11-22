@@ -1,0 +1,30 @@
+## Interface: 16001
+## Author: Lag
+## Version: 3.2.0-forever.1
+## Dependencies: ForeverLoot
+## LoadOnDemand: 1
+
+## Title: |cffffd100ForeverLoot|r |cFF0099FF[Options]|r
+## Notes: ForeverLoot options module
+
+## X-Category: Map
+## X-License: GPL v2
+
+embeds.xml
+
+Locales\constants.cn.lua
+Locales\constants.de.lua
+Locales\constants.es.lua
+Locales\constants.fr.lua
+Locales\constants.it.lua
+Locales\constants.kr.lua
+Locales\constants.mx.lua
+Locales\constants.pt.lua
+Locales\constants.ru.lua
+Locales\constants.tw.lua
+
+Core.lua
+Main.lua
+Windows.lua
+MiniMapButton.lua
+Addons.lua
