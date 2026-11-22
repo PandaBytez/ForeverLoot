@@ -8,7 +8,7 @@
 ## Notes: ForeverLoot options module
 
 ## X-Category: Map
-## X-License: GPL v2
+## X-License: GPL v3
 
 embeds.xml
 

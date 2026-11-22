@@ -39,5 +39,5 @@ This currently only supports items and notes
 
 ## Credits
 
-ForeverLoot is forked from [AtlasLootClassic](https://github.com/Hoizame/AtlasLootClassic) (GPL v2).
+ForeverLoot is forked from [AtlasLootClassic](https://github.com/Hoizame/AtlasLootClassic) (GPL v2) and licensed under GPL v3.
 Credits to the original authors and contributors: Daviesh, Lag, Arith, Cellelach, Asurn, Pernicus, Dynaletik, and the AtlasLootClassic community.
