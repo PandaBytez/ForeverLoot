@@ -1,6 +1,6 @@
 ## Interface: 16001
 ## Author: Lag
-## Version: 3.2.0-forever.1
+## Version: 4.0.0
 ## Dependencies: ForeverLoot
 ## LoadOnDemand: 1
 
