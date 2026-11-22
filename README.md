@@ -1,35 +1,31 @@
 # ForeverLoot
 
-ForeverLoot is a UI mod allowing for loot tables of bosses to be browsed whenever needed within the game.
+ForeverLoot is a UI addon allowing boss loot tables, crafting, factions, PvP, and collections to be browsed in-game.
 
 ## Download
 
-[Curseforge](https://www.curseforge.com/wow/addons/atlaslootclassic)
-
-[WoWInterface](https://www.wowinterface.com/downloads/info25185-AtlasLootClassic.html)
-
-[WagoAddons](https://addons.wago.io/addons/atlaslootclassic)
+Download the latest release from [GitHub Releases](https://github.com/PandaBytez/ForeverLoot/releases).
 
 ## Features
 
-* Loottables for Dungeons and Raids
-* Crafting with informations about materials, created items and skill ranks
+* Loot tables for Dungeons and Raids
+* Crafting with materials, created items, and skill ranks
 * Factions
 * Collections with item sets and world events
-* Favourites are the new wishlist
+* Favourites wishlist
 
 ## Options
 
-* Open with `Shift + Left Click` on MiniMap Button or with `/al options`
+* Open with `Shift + Left Click` on the MiniMap button, or with `/fl options` (`/al options`)
 
 ## Favourites
 
-* Add items directly from AtlasLoot with `Alt + Left Click`
+* Add items directly from ForeverLoot with `Alt + Left Click`
 * Add notes to favourite items with `Alt + Right Click`
-* Setup global and profile based lists
+* Setup global and profile-based lists
 * Show on item tooltip if the item is on any active list
 * Import and export your lists
-* A GUI that let you plan your gear and shows a indicator if you already own an item
+* A GUI that lets you plan your gear and shows an indicator if you already own an item
 
 ![image](https://media.forgecdn.net/attachments/260/125/atlasloot-fav-gui.png)![image](https://media.forgecdn.net/attachments/260/931/atlasloot-fav-tt.png)
 
@@ -41,10 +37,7 @@ This currently only supports items and notes
 
 `"i:16703:First item note,i:16704,i:16698:Second item note,i:16699,i:11287"`
 
-## Maps
+## Credits
 
-[Atlas Classic WoW](https://www.curseforge.com/wow/addons/atlas-classicwow)
-
-[Atlas Burning Crusade](https://www.curseforge.com/wow/addons/atlas-burningcrusade)
-
-[Atlas Wrath of the Lich King](https://www.curseforge.com/wow/addons/atlas-wrathofthelichking)
+ForeverLoot is forked from [AtlasLootClassic](https://github.com/Hoizame/AtlasLootClassic) (GPL v2).
+Credits to the original authors and contributors: Daviesh, Lag, Arith, Cellelach, Asurn, Pernicus, Dynaletik, and the AtlasLootClassic community.
