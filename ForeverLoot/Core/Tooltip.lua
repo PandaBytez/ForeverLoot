@@ -12,6 +12,7 @@ local type = _G.type
 
 -- WoW
 local UnitGUID = _G.UnitGUID
+local issecretvalue = _G.issecretvalue
 
 local STANDART_TOOLTIP = "AtlasLootTooltip"
 local COLOR = "|cFF00ccff%s|r"
@@ -196,9 +197,9 @@ local PLAYER_GUID_REGISTER = {
 local function AddText(self)
 	if self:IsForbidden() then return end
 	local name, target = self:GetUnit()
-	if not target then return end
+	if not target or (issecretvalue and issecretvalue(target)) then return end
 	local guid = UnitGUID(target)
-	if guid and PLAYER_GUID_REGISTER[guid] then
+	if guid and (not issecretvalue or not issecretvalue(guid)) and PLAYER_GUID_REGISTER[guid] then
 		self:AddLine(PLAYER_GUID_REGISTER[guid])
 	end
 end
