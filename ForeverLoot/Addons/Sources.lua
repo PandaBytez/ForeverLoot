@@ -86,7 +86,7 @@ local PRICE_INFO_TT_START = format(TT_F.."  ", ICON_TEXTURE[3], AL["Vendor"]..":
 local DIFF_SPLIT_STRING = " / "
 
 local TooltipsHooked = false
-local TooltipCache, TooltipTextCache = {}
+local TooltipTextCache = {}
 
 -- Addon
 Sources.DbDefaults = {
@@ -245,18 +245,7 @@ end
 
 local function OnTooltipSetItem_Hook(self)
     if self:IsForbidden() or not SOURCE_DATA or not Sources.db.enabled then return end
-    local _, item
-    if self.GetItem then
-        _, item = self:GetItem()
-    elseif _G.TooltipUtil and _G.TooltipUtil.GetDisplayedItem then
-        _, item = _G.TooltipUtil.GetDisplayedItem(self)
-    end
-    if not item then return end
-    if not TooltipCache[item] then
-        TooltipCache[item] = tonumber(strmatch(item, "item:(%d+)"))
-    end
-
-    item = TooltipCache[item]
+    local item = Tooltip.GetItemID(self)
 
     local sourceData
     for i = #SOURCE_DATA, 1, -1 do

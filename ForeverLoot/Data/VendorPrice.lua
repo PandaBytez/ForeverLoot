@@ -976,8 +976,8 @@ end
 --################################
 local VendorLockList = {}
 local SourcesAddon
-local UnitGUID, GetMerchantNumItems, GetMerchantItemID, GetMerchantItemCostInfo, GetMerchantItemCostItem, GetItemInfoInstant =
-      UnitGUID, GetMerchantNumItems, GetMerchantItemID, GetMerchantItemCostInfo, GetMerchantItemCostItem, GetItemInfoInstant
+local UnitGUID, GetMerchantNumItems, GetMerchantItemID, GetMerchantItemCostInfo, GetMerchantItemCostItem, GetItemInfoInstant, issecretvalue =
+      UnitGUID, GetMerchantNumItems, GetMerchantItemID, GetMerchantItemCostInfo, GetMerchantItemCostItem, GetItemInfoInstant, _G.issecretvalue
 
 local function GetNpcIDFromGuid(guid)
 	local npcID = select(6,strsplit("-",guid))
@@ -988,7 +988,7 @@ end
 
 function VendorPrice.ScanShownVendor()
     local targetGUID = UnitGUID("target")
-    if not targetGUID then return end
+    if not targetGUID or (issecretvalue and issecretvalue(targetGUID)) then return end
     local npcID = GetNpcIDFromGuid(targetGUID)
     if not npcID or VendorLockList[npcID] then return end
     if not SourcesAddon then SourcesAddon = AtlasLoot.Addons:GetAddon("Sources") end

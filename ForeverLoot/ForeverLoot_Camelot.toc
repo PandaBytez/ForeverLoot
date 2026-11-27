@@ -37,9 +37,6 @@ Core\ItemInfo.lua
 Core\TooltipScan.lua
 Core\ItemQuery.lua
 Core\ItemString.lua
-Core\TargetScan.lua
-#Core\AtlasIntegration.lua
-#Core\WorldMapIntegration.xml
 
 MiniMapButton.lua
 
@@ -66,7 +63,6 @@ Button\Dummy_type.lua
 Button\Faction_type.lua
 Button\Set_type.lua
 Button\Extra_Price_type.lua
-#Button\Extra_Quest_type.lua
 
 GUI\GUI.xml
 GUI\GUI.lua

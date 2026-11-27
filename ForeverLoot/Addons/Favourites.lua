@@ -34,13 +34,12 @@ local KEY_WEAK_MT = {__mode="k"}
 local ChatLinkPending = false
 local ChatLinkData = false
 local TooltipsHooked = false
-local TooltipCache, TooltipTextCache = {}
+local TooltipTextCache = {}
 local ListNameCache
 local ListNoteCache
 local ListBiSCache
 local ItemCountCache
 local PluginOutfitterLoading
-setmetatable(TooltipCache, KEY_WEAK_MT)
 
 Favourites.BASE_NAME_P, Favourites.BASE_NAME_G = BASE_NAME_P, BASE_NAME_G
 
@@ -336,8 +335,9 @@ local function GetActiveList(self)
     if db[name] then
         return db[name]
     else
-        self.db.activeList[1] = db[BASE_NAME_P]
-        return db[BASE_NAME_P]
+        local baseName = isGlobal and BASE_NAME_G or BASE_NAME_P
+        self.db.activeList[1] = baseName
+        return db[baseName]
     end
 end
 
@@ -377,18 +377,8 @@ end
 
 local function OnTooltipSetItem_Hook(self)
     if self:IsForbidden() or not Favourites.db.enabled or (not Favourites.db.showIconInTT and not Favourites.db.showListInTT) then return end
-    local _, item
-    if self.GetItem then
-        _, item = self:GetItem()
-    elseif _G.TooltipUtil and _G.TooltipUtil.GetDisplayedItem then
-        _, item = _G.TooltipUtil.GetDisplayedItem(self)
-    end
+    local item = Tooltip.GetItemID(self)
     if not item then return end
-    if not TooltipCache[item] then
-        TooltipCache[item] = tonumber(strmatch(item, "item:(%d+)"))
-    end
-
-    item = TooltipCache[item]
     if Favourites:IsFavouriteItemID(item) then
         if Favourites.db.showIconInTT then
             local text = _G[self:GetName().."TextLeft1"]
@@ -455,7 +445,7 @@ local function ChatFilterFunc(_, event, msg, player, l, cs, t, flag, channelId, 
                     local toon = C_BattleNet.GetFriendNumGameAccounts(i)
                     for j = 1, toon do
                         local gameAccountInfo = C_BattleNet.GetFriendGameAccountInfo(i, j);
-                        if gameAccountInfo.characterName == trimmedPlayer and gameAccountInfo.clientProgram == "WoW" then
+                        if gameAccountInfo and gameAccountInfo.characterName == trimmedPlayer and gameAccountInfo.clientProgram == "WoW" then
                             return false, newMsg, player, l, cs, t, flag, channelId, ...; -- Player is a real id friend, allow it
                         end
                     end
@@ -582,7 +572,8 @@ function Favourites.OnInitialize()
             if not strfind(sender, "-") then
                 sender = sender.."-"..GetRealmName()
             end
-            local listName, listData = strsplit(":", params, 2)
+            local listName, listData = strsplit(":", params or "", 2)
+            if not listName or not listData then return end
             local listIdent = sender..":"..listName
             if ChatLinkPending ~= listIdent then
                 print(AL["Received unexpected favourite list '%s' (expected '%s')"]:format(listIdent, ChatLinkPending))
@@ -699,6 +690,7 @@ function Favourites:RemoveItemID(itemID)
         self.activeList[itemID] = nil
         TooltipTextCache[itemID] = nil
         self:CleanUpMainItems()
+        self:OnStatusChanged()
         self:OnItemsChanged()
         return true
     end
@@ -773,17 +765,6 @@ function Favourites:CountCacheIdent(addonName, contentName, boss, dif, includeOb
         cacheIdent = cacheIdent.."__nil"
     end
     return cacheIdent
-end
-
-function Favourites:CountFavouritesOverall(addonName, contentName, boss, dif, includeObsolete)
-    local cacheIdent = self:CountCacheIdent(addonName, contentName, boss, dif, includeObsolete)
-    local result = ItemCountCache[cacheIdent]
-    if result == nil then
-        -- No valid cache, calculate item count!
-        result = 0
-        -- TODO
-    end
-    return result
 end
 
 function Favourites:CountFavouritesByList(addonName, contentName, boss, dif, includeObsolete)
@@ -1091,14 +1072,15 @@ end
 
 function Favourites:AddNewList(isGlobalList)
     local list = isGlobalList and self:GetGlobaleLists() or self:GetProfileLists()
-    local id = format(NEW_LIST_ID_PATTERN, isGlobalList and "g" or "p", GetServerTime())
-
-    if not list[id] then    -- should work as spam protect as GetServerTime returns sec
-        list[id] = {}
-        self:AddIntoShownList(id, isGlobalList, isGlobalList)
-        return id
+    local baseId = format(NEW_LIST_ID_PATTERN, isGlobalList and "g" or "p", GetServerTime())
+    local id, suffix = baseId, 1
+    while list[id] do
+        suffix = suffix + 1
+        id = baseId.."_"..suffix
     end
-    return false
+    list[id] = {}
+    self:AddIntoShownList(id, isGlobalList, isGlobalList)
+    return id
 end
 
 function Favourites:RemoveList(listID, isGlobalList)

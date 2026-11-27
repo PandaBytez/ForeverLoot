@@ -229,7 +229,7 @@ function ItemFrame:Refresh(skipProtect)
 			ItemFrame.frame.HeaderLines[i]:Hide()
 		end
 	end
-	local headerLines = items.headerLines or bossData.headerLines
+	local headerLines = (items and items.headerLines) or (bossData and bossData.headerLines)
 	if headerLines then
 		local line
 		for i = 1, #headerLines do

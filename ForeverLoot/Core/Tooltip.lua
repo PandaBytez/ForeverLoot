@@ -22,18 +22,8 @@ local AtlasLootTooltip = CreateFrame("GameTooltip", "AtlasLootTooltip", UIParent
 AtlasLootTooltip:Hide()
 AtlasLootTooltip.shoppingTooltips = {ShoppingTooltip1, ShoppingTooltip2}
 
-local TooltipList = {
-	"GameTooltip",
-	"AtlasLootTooltip",
-}
-
-
 function Tooltip.GetTooltip()
 	return AtlasLoot.db.Tooltip.useGameTooltip and _G["GameTooltip"] or ( _G[AtlasLoot.db.Tooltip.tooltip or STANDART_TOOLTIP] or AtlasLootTooltip )
-end
-
-function Tooltip:AddTooltipSource(src)
-	TooltipList[#TooltipList+1] = src
 end
 
 -- Hook
@@ -46,6 +36,8 @@ local HookTooltipList = {
     "ShoppingTooltip2"
 }
 local HookedTooltipRegister = {}
+local HookedDataProcessor = {}
+local HookedDataProcessorTooltips = {}
 local FunctionRegister = {}
 
 local function RefreshHooks()
@@ -70,11 +62,19 @@ local function RefreshHooks()
 							local dataType = script == "OnTooltipSetItem" and _G.Enum.TooltipDataType.Item
 								or script == "OnTooltipSetUnit" and _G.Enum.TooltipDataType.Unit
 							if dataType then
-								_G.TooltipDataProcessor.AddTooltipPostCall(dataType, function(tooltip)
-									if tooltip == hookTT then
-										func(tooltip)
-									end
-								end)
+								HookedDataProcessorTooltips[script] = HookedDataProcessorTooltips[script] or {}
+								HookedDataProcessorTooltips[script][func] = HookedDataProcessorTooltips[script][func] or {}
+								HookedDataProcessorTooltips[script][func][hookTT] = true
+								HookedDataProcessor[script] = HookedDataProcessor[script] or {}
+								if not HookedDataProcessor[script][func] then
+									HookedDataProcessor[script][func] = true
+									local allowedTooltips = HookedDataProcessorTooltips[script][func]
+									_G.TooltipDataProcessor.AddTooltipPostCall(dataType, function(tooltip)
+										if allowedTooltips[tooltip] then
+											func(tooltip)
+										end
+									end)
+								end
 								register[script][func] = true
 							end
 						end
@@ -130,22 +130,25 @@ AtlasLoot:AddInitFunc(HookInit)
 -- Item ToolTip adds
 -- #############################
 local WHITE_TEXT = "|cffffffff%s|r"
-local TooltipCache = {}
+local TooltipCache = setmetatable({}, {__mode = "k"})
+
+function Tooltip.GetItemID(tooltip)
+    local _, item
+    if tooltip.GetItem then
+        _, item = tooltip:GetItem()
+    elseif _G.TooltipUtil and _G.TooltipUtil.GetDisplayedItem then
+        _, item = _G.TooltipUtil.GetDisplayedItem(tooltip)
+    end
+    if not item then return end
+    if not TooltipCache[item] then
+        TooltipCache[item] = tonumber(strmatch(item, "item:(%d+)"))
+    end
+    return TooltipCache[item]
+end
 
 local function OnTooltipSetItem_Hook(self)
     if self:IsForbidden() or not AtlasLoot.db.showTooltipInfoGlobal then return end
-    local _, item
-    if self.GetItem then
-        _, item = self:GetItem()
-    elseif _G.TooltipUtil and _G.TooltipUtil.GetDisplayedItem then
-        _, item = _G.TooltipUtil.GetDisplayedItem(self)
-    end
-    if not item then return end
-	if not TooltipCache[item] then
-        TooltipCache[item] = tonumber(strmatch(item, "item:(%d+)"))
-    end
-
-    item = TooltipCache[item]
+    local item = Tooltip.GetItemID(self)
 
     if item then
 		if AtlasLoot.db.showCompanionLearnedInfo and AtlasLoot.Data.Companion.IsCompanion(item) then

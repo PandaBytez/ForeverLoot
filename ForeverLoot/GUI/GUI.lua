@@ -225,7 +225,7 @@ local BackDropFrame = {"TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "B
 function GUI.SetBackDropLayer(frame, newLayer, count)
 	for k, v in ipairs(BackDropFrame) do
 		if frame[v] then
-			frame.Center:SetDrawLayer(newLayer, count)
+			frame[v]:SetDrawLayer(newLayer, count)
 		end
 	end
 end

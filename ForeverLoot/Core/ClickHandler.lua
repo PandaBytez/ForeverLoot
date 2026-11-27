@@ -79,12 +79,13 @@ function ClickHandler:GetHandler(name)
 end
 
 function ClickHandler:Update(name)
-	if not DbDefaults[name] then return end
-	DbDefaults[name]:Update()
+	if not HandlerRegister[name] then return end
+	HandlerRegister[name]:Update()
 end
 
 function ClickHandler:GetLocMouseButtons()
 	if not MOUSE_BUTTON_LOC then
+		MOUSE_BUTTON_LOC = {}
 		local preSet = {
 			["Button1"] = "LeftButton",
 			["Button2"] = "RightButton",

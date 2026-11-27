@@ -123,7 +123,7 @@ function ItemDB:GetDifficulty(addonName, contentName, boss, dif)
 		if count == 0 then
 			count = dif + 1
 		elseif count > numDiffs then
-			--error(dif.." (dif) not found! -> "..boss)
+			if dif == 1 then return end
 			return ItemDB:GetDifficulty(addonName, contentName, boss, 1)
 		end
 		if ItemDB.Storage[addonName][contentName].items[boss][count] then
