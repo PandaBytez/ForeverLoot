@@ -273,6 +273,10 @@ function ItemDB:GetItemTable(addonName, contentName, boss, dif)
 		end
 	end
 
+	if not dif or not ItemDB.Storage[addonName][contentName].items[boss][dif] then
+		return nil, nil, ItemDB.Storage[addonName]:GetDifficultyData(dif)
+	end
+
 	--assert(dif and ItemDB.Storage[addonName][contentName].items[boss][dif], dif.." (dif) not found!")
 	return ItemDB.Storage[addonName][contentName].items[boss][dif], getItemTableType(addonName, contentName, boss, dif), ItemDB.Storage[addonName]:GetDifficultyData(dif)
 end
